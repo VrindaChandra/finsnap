@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    <title>Home</title>
+
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+      integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+      crossorigin="anonymous" />
+
+    <style>
+
+      @import url('https://fonts.googleapis.com/css?family=Roboto');
+
+    </style>
+
+  </head>
+
+<!-- ---------------------------------------------------------------------------------------------------------------------- -->
+
+  <body>
+
+    <!-- ----------------------------------- NAVBAR ---------------------------------------------- -->
+
+    <style>
+
+    :root { 
+      --navbar-bg-color: hsl(0, 0%, 15%); 
+      --navbar-text-color: hsl(0, 0%, 85%); 
+      --navbar-text-color-focus: white;
+      --navbar-bg-contrast: hsl(0, 0%, 25%); 
+    }
+
+    * { 
+      box-sizing: border-box; 
+      margin: 0;
+      padding: 0; 
+    }
+
+    .container { 
+      max-width: 10000px; 
+      padding-left: 4rem; 
+      padding-right: 4rem; 
+      margin-left: auto; 
+      margin-right: auto; 
+    }
+
+    #navbar { 
+      --navbar-height: 68px; 
+      position: fixed; 
+      height: var(--navbar-height); 
+      background-color: var(--navbar-bg-color);
+      left: 0; 
+      right: 0; 
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15); 
+    }
+
+    .navbar-container { 
+      display: flex; 
+      justify-content: space-between; 
+      height: 100%; 
+      align-items: center; 
+    }
+
+    .navbar-item { 
+      margin: 0.4em; 
+      width: 100%; 
+    }
+
+    .home-link,
+    .navbar-link {
+      color: var(--navbar-text-color); 
+      text-decoration: none; 
+      display: flex; 
+      font-weight: 400; 
+      align-items: center; 
+    }
+
+    .home-link:is(:focus, :hover) { 
+      color: var(--navbar-text-color-focus);
+    }
+
+    .navbar-link { 
+      justify-content: center; 
+      width: 100%; 
+      padding: 0.4em 0.8em; 
+      border-radius: 5px; 
+    }
+
+    .navbar-link:is(:focus, :hover) { 
+      color: var(--navbar-text-color-focus); 
+      background-color: var(--navbar-bg-contrast); 
+    }
+
+    .navbar-logo { 
+      background-color: var(--navbar-text-color-focus); 
+      border-radius: 50%; 
+      width: 30px; 
+      height: 30px; 
+      margin-right: 0.5em; 
+    }
+
+    #navbar-toggle { 
+      cursor: pointer; 
+      border: none; 
+      background-color: transparent; 
+      width: 40px; 
+      height: 40px;  
+      display: flex;  
+      align-items: center; 
+      justify-content: center; 
+      flex-direction: column; 
+    }
+
+    .icon-bar { 
+      display: block; 
+      width: 25px; 
+      height: 4px; 
+      margin: 2px; 
+      background-color: var(--navbar-text-color); 
+    }
+
+    #navbar-toggle:is(:focus, :hover) .icon-bar { 
+      background-color: var(--navbar-text-color-focus); 
+    }
+
+    #navbar-toggle[aria-expanded="true"] .icon-bar:is(:first-child, :last-child) { 
+      position: absolute; margin: 0; width: 30px; 
+    }
+
+    #navbar-toggle[aria-expanded="true"] .icon-bar:first-child { 
+      transform: rotate(45deg); 
+    }
+
+    #navbar-toggle[aria-expanded="true"] .icon-bar:nth-child(2) { 
+      opacity: 0; 
+    }
+
+    #navbar-toggle[aria-expanded="true"] .icon-bar:last-child { 
+      transform: rotate(-45deg); 
+    }
+
+    #navbar-menu { 
+      position: fixed; 
+      top: var(--navbar-height); 
+      bottom: 0; 
+      opacity: 0; 
+      visibility: hidden; 
+      left: 0; 
+      right: 0; 
+    }
+
+    #navbar-toggle[aria-expanded="true"] + #navbar-menu { 
+      background-color: rgba(0, 0, 0, 0.4);
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .navbar-links { 
+      list-style: none; 
+      position: absolute; 
+      background-color: var(--navbar-bg-color); 
+      display: flex;
+      flex-direction: column; 
+      font-family: sans-serif; 
+      align-items: center; 
+      text-align: center; 
+      left: 0; 
+      right: 0; 
+      margin: 1.4rem; 
+      border-radius: 5px; 
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); 
+    }
+
+    #navbar-toggle[aria-expanded="true"] + #navbar-menu .navbar-links { 
+      padding: 1em; 
+    }
+
+    @media screen and (min-width: 800px) { 
+      #navbar-toggle, #navbar-toggle[aria-expanded="true"] { 
+        display: none; 
+      }
+
+      #navbar-menu,
+      #navbar-toggle[aria-expanded="true"] #navbar-menu { 
+        visibility: visible; 
+        opacity: 1; 
+        position: static; 
+        display: block;
+        height: 100%; 
+      }
+
+      .navbar-links,
+      #navbar-toggle[aria-expanded="true"] #navbar-menu .navbar-links { 
+        margin: 0; 
+        padding: 0; 
+        box-shadow: none; 
+        position: static; 
+        flex-direction: row; 
+        width: 100%; 
+        height: 100%; 
+      } 
+    }
+
+  </style>
+
+    <header id="navbar" style="z-index: 5">
+
+    <!--logo-->
+    <nav class="navbar-container container"><div><img src="C:\Users\Vrinda\OneDrive\Desktop\LOGO.jpg"></div>
+
+      <!--hamburger icon-->
+      <button type="button" id="navbar-toggle" aria-controls="navbar-menu" aria-label="Toggle menu" aria-expanded="false">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+
+      <!--navbar items-->
+      <div id="navbar-menu" aria-labelledby="navbar-toggle">
+        <ul class="navbar-links">
+          <li class="navbar-item"><a class="navbar-link" href="index.html">Home</a></li>
+          <li class="navbar-item"><a class="navbar-link" href="ourStory.html">Our Story</a></li>
+          <li class="navbar-item"><a class="navbar-link" href="finSneakPeek.html">Fin Sneak Peek</a></li>
+          <li class="navbar-item"><a class="navbar-link" href="conversationWithLegends.html">Conversation With Legends</a></li>
+          <li class="navbar-item"><a class="navbar-link" href="digitalHarbour.html">Digital Harbour</a></li>
+          <li class="navbar-item"><a class="navbar-link" href="finsnapperWorld.html">Finsnapper World</a></li>
+          <li class="navbar-item"><a class="navbar-link" href="/about">Games</a></li>
+        </ul>
+      </div>
+
+    </nav>
+
+    </header>
+
+
+    <script>
+
+    const navbarToggle = navbar.querySelector("#navbar-toggle");
+    const navbarMenu = document.querySelector("#navbar-menu");
+    const navbarLinksContainer = navbarMenu.querySelector(".navbar-links");
+    let isNavbarExpanded = navbarToggle.getAttribute("aria-expanded") === "true";
+
+    const toggleNavbarVisibility = () => {
+      isNavbarExpanded = !isNavbarExpanded;
+      navbarToggle.setAttribute("aria-expanded", isNavbarExpanded);
+    };
+
+    navbarToggle.addEventListener("click", toggleNavbarVisibility);
+
+    navbarLinksContainer.addEventListener("click", (e) => e.stopPropagation());
+    navbarMenu.addEventListener("click", toggleNavbarVisibility);
+      
+    </script>
+
+    <!-- ----------------------------------- NAVBAR ENDS ---------------------------------------------- -->
+
+
+    <!-- ----------------------------------- SLIDESHOW ---------------------------------------------- -->
+
+    <style>
+
+      * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+
+        body {
+          font-family: 'Roboto', sans-serif;
+          background: #333;
+          color: #fff;
+          line-height: 1.6;
+        }
+
+        .slider {
+          z-index: -1;
+          position: relative;
+          overflow: hidden;
+          height: 100vh;
+          width: 100vw;
+        }
+
+        .slide {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          opacity: 0;
+          transition: opacity 0.4s ease-in-out;
+        }
+
+        .slide.current {
+          opacity: 1;
+        }
+
+        .slide .content {
+          position: absolute;
+          bottom: 70px;
+          left: -600px;
+          opacity: 0;
+          width: 600px;
+          background-color: rgba(255, 255, 255, 0.8);
+          color: #333;
+          padding: 35px;
+        }
+
+        .slide .content h1 {
+          margin-bottom: 10px;
+        }
+
+        .slide.current .content {
+          opacity: 1;
+          transform: translateX(600px);
+          transition: all 0.7s ease-in-out 0.3s;
+        }
+
+        .buttons button#next {
+          position: absolute;
+          top: 40%;
+          right: 15px;
+        }
+
+        .buttons button#prev {
+          position: absolute;
+          top: 40%;
+          left: 15px;
+        }
+
+        .buttons button {
+          border: 2px solid #fff;
+          background-color: transparent;
+          color: #fff;
+          cursor: pointer;
+          padding: 13px 15px;
+          border-radius: 50%;
+          outline: none;
+        }
+
+        .buttons button:hover {
+          background-color: #fff;
+          color: #333;
+        }
+
+        @media (max-width: 500px) {
+          .slide .content {
+            bottom: -300px;
+            left: 0;
+            width: 100%;
+          }
+
+          .slide.current .content {
+            transform: translateY(-300px);
+          }
+        }
+
+         /* image links */
+        .slide:first-child {
+          background: url('https://imgs.search.brave.com/bracMH3zXd_1FlbJLRk23DY5fbdktzsEDDiWaWHTcDc/rs:fit:1200:1200:1/g:ce/aHR0cDovL2tsdy5j/b20uYXUvd3AtY29u/dGVudC91cGxvYWRz/LzIwMTgvMDEvZmlu/YW5jZS1iYW5uZXIt/cHVycGxlLmpwZw') no-repeat
+            center top/cover;
+        }
+        .slide:nth-child(2) {
+          background: url('https://blog.xyplanningnetwork.com/hs-fs/hubfs/Imported_Blog_Media/rsz_8_blogs_for_millennials.jpg?width=800&height=533&name=rsz_8_blogs_for_millennials.jpg') no-repeat
+            center top/cover;
+        }
+        .slide:nth-child(3) {
+          background: url('https://resize.indiatvnews.com/en/resize/newbucket/715_-/2019/11/whatsapp-image-2019-11-24-at-16-1574593427.jpeg') no-repeat
+            center top/cover;
+
+    </style>
+
+    <div class="slider">
+      <div class="slide current">
+        <div class="content">
+          <h1>Go Finance, Go Digital, Go Girl!</h1>
+          <p>
+            Finsnap™ is a one stop shop for personal finance education and digital tips for girls to become financially mindful and digitally smart.
+          </p>
+        </div>
+      </div>
+      <div class="slide">
+        <div class="content">
+          <h1>What We Do!</h1>
+          <p>
+            We aim to demystify the world of personal finance via our website, subscriber based newsletter and app. We also host webinars for schools, colleges and individual gatherings!
+          </p>
+        </div>
+      </div>
+      <div class="slide">
+        <div class="content">
+          <h1>Important Milestones!</h1>
+          <p>
+            We have been featured in the Economic Times and Delhi Times newspapers, CNBC Awaaz on national television and on the radio channel 93.5 RedFm!
+          </p>
+        </div>
+      </div>
+      
+    </div>
+    <div class="buttons">
+      <button id="prev"><i class="fas fa-arrow-left"></i></button>
+      <button id="next"><i class="fas fa-arrow-right"></i></button>
+    </div>
+
+
+    <script>
+
+      const slides = document.querySelectorAll('.slide');
+      const next = document.querySelector('#next');
+      const prev = document.querySelector('#prev');
+      const auto = true; // Auto scroll
+      const intervalTime = 6000;
+      let slideInterval;
+
+      const nextSlide = () => {
+        // Get current class
+        const current = document.querySelector('.current');
+        // Remove current class
+        current.classList.remove('current');
+        // Check for next slide
+        if (current.nextElementSibling) {
+          // Add current to next sibling
+          current.nextElementSibling.classList.add('current');
+        } else {
+          // Add current to start
+          slides[0].classList.add('current');
+        }
+        setTimeout(() => current.classList.remove('current'));
+      };
+
+      const prevSlide = () => {
+        // Get current class
+        const current = document.querySelector('.current');
+        // Remove current class
+        current.classList.remove('current');
+        // Check for prev slide
+        if (current.previousElementSibling) {
+          // Add current to prev sibling
+          current.previousElementSibling.classList.add('current');
+        } else {
+          // Add current to last
+          slides[slides.length - 1].classList.add('current');
+        }
+        setTimeout(() => current.classList.remove('current'));
+      };
+
+      // Button events
+      next.addEventListener('click', e => {
+        nextSlide();
+        if (auto) {
+          clearInterval(slideInterval);
+          slideInterval = setInterval(nextSlide, intervalTime);
+        }
+      });
+
+      prev.addEventListener('click', e => {
+        prevSlide();
+        if (auto) {
+          clearInterval(slideInterval);
+          slideInterval = setInterval(nextSlide, intervalTime);
+        }
+      });
+
+      // Auto slide
+      if (auto) {
+        // Run next slide at interval time
+        slideInterval = setInterval(nextSlide, intervalTime);
+      }
+
+    </script>
+
+    <!-- ----------------------------------- SLIDESHOW ENDS ---------------------------------------------- -->
+
+
+    <!-- ----------------------------------- WHAT WE DO ---------------------------------------------- -->
+
+    <style>
+
+      #whatWeDo
+      {
+        font-family: 'Roboto';
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+        width: 95%;
+      }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      .row {
+        width: 100%;
+        height: 100%;
+        background: #fff1f0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: roboto;
+      }
+
+      .services-box
+      {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+
+      .service
+      {
+        margin: 35px;
+      }
+
+      .flip-box {
+        background-color: transparent;
+        width: 300px;
+        height: 400px;
+        border-radius: 10px;
+        perspective: 1000px;
+      }
+
+      .flip-box-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        transition: transform 0.8s;
+        transform-style: preserve-3d;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .flip-box:hover .flip-box-inner {
+        transform: rotateY(180deg);
+      }
+
+      .flip-box-front, .flip-box-back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+
+      .flip-box-front {
+        background-color: #fff;
+        color: black;
+        border-radius: 10px;
+      }
+
+      .flip-box-back {
+        background-color: #ffffff;
+        color: #000;
+        transform: rotateY(180deg);
+        border-radius: 10px;
+        padding: 16px;
+      }
+
+
+    </style>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> <script src="https://use.fontawesome.com/6c5fb23c6b.js"></script>
+
+    <div id="whatWeDo">
+      <br><br>
+      <h1>WHAT WE DO</h1>
+      <br>
+      <p>For modern teenagers, sources of information are tremendous, options are plenty and confusion tops everything else. With so many avenues available, one tends to overlook the basics and our priorities become ease over quality. Finsnap is an effort to demystify finance and make it fun while spreading financial awareness among females (young adults and teenagers), along with a digital guide to keep them engaged and help them optimise their expenses. </p>
+      <br>
+    </div>
+
+    <!-- descriptive cards -->
+    <div class="services-box">
+
+    <div class="service">
+      <div class="flip-box">
+        <div class="flip-box-inner">
+          <div class="flip-box-front" style="align-items: center;">
+            <br><h2 style="color: black;">WEBSITE</h2><br>
+            <img src="https://media-exp1.licdn.com/dms/image/C4D0BAQEldaD4piMXaQ/company-logo_200_200/0/1589348315925?e=2147483647&v=beta&t=DDkBo8V0XBXEN5xsu5iRPkv7IjV0ih3JG4NBqFZm7K8" style="height: 30%; width: 60%;">
+            <br>
+            <p style="color: black;text-align: center; width: 90%;">Our website is a preview of all our activities as an ed-tech organization which aims to make our young audience's exploratory journey into personal finance smooth and enjoyable.</p>
+            <br>
+          </div>
+          <div class="flip-box-back" style="text-align: center;">
+            <br>
+            <p style="color: black;">Sections of the website -><br><b>Our Story</b> - Finsnap's creation and its team.<br><b>Fin Sneak Peek</b> - Financial terms explained in layman language<br><b>Conversation With Legends</b> - Candid talks about personal finance with inspirational women.<br><b>Digital Harbour</b> - tips on how to save while navigating digital money, shopping etc.<br><b>Finsnapper World</b> - books, movies, talks and animations about finance.<br><b>Games</b> - short and entertaining games about investing concepts!</p><br>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="service">
+      <div class="flip-box">
+        <div class="flip-box-inner">
+          <div class="flip-box-front" style="align-items: center;">
+            <br><h2 style="color: black;">THE FINCONOMIST</h2><br>
+            <img src="https://media-exp1.licdn.com/dms/image/C4D0BAQEldaD4piMXaQ/company-logo_200_200/0/1589348315925?e=2147483647&v=beta&t=DDkBo8V0XBXEN5xsu5iRPkv7IjV0ih3JG4NBqFZm7K8" style="height: 30%; width: 60%;">
+            <br>
+            <p style="color: black;text-align: center; width: 90%;">This is our bi-monthly newsletter where we publish articles about various investment tools, fintech innovations and a lot more in simple de-jargonized language for our subscribers.</p>
+            <br>
+          </div>
+          <div class="flip-box-back" style="text-align: center;">
+            <br>
+            <p style="color: black;">Check out our latest article -><br>Finconomist Edition 15: Building Blocks of Blockchain! published on 19 September 2021, written by Jayant Yadav</p><br>
+            <img src="C:\Users\Vrinda\OneDrive\Desktop\blockchain.png" style="height: 60%; width: 70%;"><br>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="service">
+      <div class="flip-box">
+        <div class="flip-box-inner">
+          <div class="flip-box-front" style="align-items: center;">
+            <br><h2 style="color: black;">WEBINARS</h2><br>
+            <img src="https://media-exp1.licdn.com/dms/image/C4D0BAQEldaD4piMXaQ/company-logo_200_200/0/1589348315925?e=2147483647&v=beta&t=DDkBo8V0XBXEN5xsu5iRPkv7IjV0ih3JG4NBqFZm7K8" style="height: 30%; width: 60%;">
+            <br>
+            <p style="color: black;text-align: center; width: 90%;">Finsnap offers webinars for schools and colleges, where students are introduced to the art of investing through infographics, activities and layman explanations.<b> Contact us to have one hosted right away!</b></p>
+            <br>
+          </div>
+          <div class="flip-box-back" style="text-align: center;">
+            <br><p style="color: black;"><b>Modules of the webinar -></b> Practices and concepts of investing, equity and debt instruments + mutual funds, banking and technical know-how for online finance.<br>We have given webinars in The Shri Ram School, Moulsari (Delhi), Saraf Public School (Uttrakhand) and for individual gatherings of students from colleges such as St.Xaviers College, Mumbai.<br><b>Contact us for a webinar!</b><li><a href="mailto:gofinsnapper@yahoo.com">Email</a></li><li><a href="https://www.linkedin.com/company/finsnap/about/?viewAsMember=true">Linkedin</a></li><li><a href="https://www.instagram.com/finsnap_/?hl=en">Instagram</a></li></p><br>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="service">
+      <div class="flip-box">
+        <div class="flip-box-inner">
+          <div class="flip-box-front" style="align-items: center;">
+            <br><h2 style="color: black;">OUR APP</h2><br>
+            <img src="https://media-exp1.licdn.com/dms/image/C4D0BAQEldaD4piMXaQ/company-logo_200_200/0/1589348315925?e=2147483647&v=beta&t=DDkBo8V0XBXEN5xsu5iRPkv7IjV0ih3JG4NBqFZm7K8" style="height: 30%; width: 60%;">
+            <br>
+            <p style="color: black;text-align: center; width: 90%;">We are launching an app that will help our users understand investments at a deeper level through stories, quizzes and engaging videos. We may also include an academic guide for teachers soon!</p>
+            <br>
+          </div>
+          <div class="flip-box-back" style="text-align: center;">
+            <p style="color: black;">The App is currently being developed</p>
+          </div>
+        </div>
+      </div>
+    </div> 
+    <!-- descriptive cards end -->
+
+  </div>
+  <!-- ----------------------------------- WHAT WE DO ENDS ---------------------------------------- -->
+
+
+
+  <!-- ----------------------------------- FINCONOMIST CAROUSEL ----------------------------------- -->
+
+  
+
+  <!-- ----------------------------------- FINCONOMIST CAROUSEL ENDS ----------------------------------- -->
+</body>
+</html>
